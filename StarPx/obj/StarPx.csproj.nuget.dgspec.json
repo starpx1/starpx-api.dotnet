@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\StarPx\\StarPx.csproj": {}
+    "D:\\Projects\\StarPx\\StarPx\\StarPx.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\StarPx\\StarPx.csproj": {
+    "D:\\Projects\\StarPx\\StarPx\\StarPx.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\StarPx\\StarPx.csproj",
+        "projectUniqueName": "D:\\Projects\\StarPx\\StarPx\\StarPx.csproj",
         "projectName": "StarPx",
-        "projectPath": "D:\\Projects\\StarPx\\StarPx.csproj",
+        "projectPath": "D:\\Projects\\StarPx\\StarPx\\StarPx.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\StarPx\\obj\\",
+        "outputPath": "D:\\Projects\\StarPx\\StarPx\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "StarPx/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/StarPx.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StarPx.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "StarPx/1.0.0": {
+      "type": "project",
+      "path": "../StarPx/StarPx.csproj",
+      "msbuildProject": "../StarPx/StarPx.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "StarPx >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Admin\\.nuget\\packages\\": {}
@@ -13,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\StarPx\\StarPx.csproj",
-      "projectName": "StarPx",
-      "projectPath": "D:\\Projects\\StarPx\\StarPx.csproj",
+      "projectUniqueName": "D:\\Projects\\StarPx\\TestApp\\TestApp.csproj",
+      "projectName": "TestApp",
+      "projectPath": "D:\\Projects\\StarPx\\TestApp\\TestApp.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\StarPx\\obj\\",
+      "outputPath": "D:\\Projects\\StarPx\\TestApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -33,7 +52,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\StarPx\\StarPx\\StarPx.csproj": {
+              "projectPath": "D:\\Projects\\StarPx\\StarPx\\StarPx.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
