@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Serilog.Events;
+using Serilog;
 using StarPx;
 namespace TestApp
 {
@@ -10,7 +12,7 @@ namespace TestApp
     {
         static async Task Main(string[] args)
         {
-            var apiClient = new Client("http://localhost:3000");
+            var apiClient = new Client("http://localhost:3000",6,5);
 
             try
             {
