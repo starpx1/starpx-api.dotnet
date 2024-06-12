@@ -15,32 +15,14 @@ namespace StarPx
         private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
         private readonly ILogger _logger;
 
-        public Client(string baseUrl, int retryCount, int sleepDuration, string? retryMsg = null)
+        public Client(string baseUrl, AsyncRetryPolicy<HttpResponseMessage> policy)
         {
             _httpClient = new HttpClient();
             _baseUrl = baseUrl;
             // Configure the back-off retry policy
 
-            _retryPolicy = Policy
-                .HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
-                .WaitAndRetryAsync(
-                    retryCount: retryCount, // Maximum number of retries
-                    sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(sleepDuration), // Exponential back-off
-                    onRetryAsync: async (outcome, timespan, retryAttempt, context) =>
-                    {
-                        // Log retry attempt
-                        if (retryMsg != null)
-                        {
-                            Console.WriteLine(retryMsg);
-
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Retrying in {timespan.TotalSeconds} seconds. Retry attempt {retryAttempt}");
-
-                        }
-                        await Task.CompletedTask;
-                    });
+            _retryPolicy = policy;
+                
             _logger = Log.Logger = new LoggerConfiguration()
            .MinimumLevel.Information()
            .WriteTo.Console()
