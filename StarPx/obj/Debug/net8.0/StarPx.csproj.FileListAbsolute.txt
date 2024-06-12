@@ -20,3 +20,5 @@ D:\Projects\StarPx\StarPx\obj\Debug\net8.0\StarPx.dll
 D:\Projects\StarPx\StarPx\obj\Debug\net8.0\refint\StarPx.dll
 D:\Projects\StarPx\StarPx\obj\Debug\net8.0\StarPx.pdb
 D:\Projects\StarPx\StarPx\obj\Debug\net8.0\ref\StarPx.dll
+D:\Projects\StarPx\StarPx\obj\Debug\net8.0\StarPx.csproj.AssemblyReference.cache
+D:\Projects\StarPx\StarPx\obj\Debug\net8.0\StarPx.sourcelink.json

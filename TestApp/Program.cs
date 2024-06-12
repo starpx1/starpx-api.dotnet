@@ -14,7 +14,7 @@ namespace TestApp
 
             try
             {
-                var authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+                var authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...";
 
 
                 var authData = "valid-api-key";
