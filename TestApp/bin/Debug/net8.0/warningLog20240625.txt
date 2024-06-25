@@ -1,0 +1,5 @@
+2024-06-25 19:35:56.221 +07:00 [ERR] No connection could be made because the target machine actively refused it. (localhost:3000)
+2024-06-25 21:10:10.101 +07:00 [ERR] Response status code does not indicate success: 500 (Internal Server Error).
+2024-06-25 21:10:55.882 +07:00 [ERR] Response status code does not indicate success: 500 (Internal Server Error).
+2024-06-25 21:53:11.455 +07:00 [ERR] Response status code does not indicate success: 500 (Internal Server Error).
+2024-06-25 21:57:04.284 +07:00 [ERR] Response status code does not indicate success: 500 (Internal Server Error).
