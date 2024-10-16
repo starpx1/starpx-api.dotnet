@@ -248,7 +248,10 @@
           "Serilog.Sinks.File": "5.0.0"
         },
         "runtime": {
-          "StarPx.dll": {}
+          "StarPx.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

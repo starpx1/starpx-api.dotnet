@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express();
+const https = require('https');
 // const PORT = 3000;
 var number = 0;
 var generalToken;
@@ -22,7 +23,7 @@ function generateAccessToken(payload) {
 
 }
 // /authenticate endpoint
-app.post('https://api.starpx.com/v1/authenticate', (req, res) => {
+app.post('https://upload1.starpx.com/v1/authenticate', (req, res) => {
   const apiKey = req.header('apiKey');
   if (apiKey === 'valid-api-key') {
     const payload = {
@@ -47,7 +48,7 @@ app.post('https://api.starpx.com/v1/authenticate', (req, res) => {
 });
 
 // /platesolve endpoint
-app.post('https://api.starpx.com/v1/platesolve', (req, res) => {
+app.post('https://upload1.starpx.com/v1/platesolve', (req, res) => {
   const authHeader = req.header('Authorization');
   // const token = authHeader.split(' ')[1];
   const token = generalToken;
@@ -72,7 +73,7 @@ app.post('https://api.starpx.com/v1/platesolve', (req, res) => {
 });
 
 // /platesolve/:platesolve_id endpoint
-app.get('https://api.starpx.com/v1/platesolve/:platesolve_id', (req, res) => {
+app.get('https://upload1.starpx.com/v1/platesolve/:platesolve_id', (req, res) => {
   const authHeader = req.header('Authorization');
   // const token = authHeader.split(' ')[1];
   const token = generalToken;
