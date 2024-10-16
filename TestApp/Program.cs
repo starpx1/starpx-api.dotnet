@@ -12,6 +12,7 @@ using Polly.Retry;
 
 using StarPx;
 using Polly;
+using StarPx.Models;
 namespace TestApp
 {
     internal class Program
@@ -19,22 +20,37 @@ namespace TestApp
         static async Task Main(string[] args)
         {
             var retrySetting = RetrySetting(6,5);
-            var apiClient = new Client("http://localhost:3000", retrySetting);
+            var apiClient = new Client("https://upload1.starpx.com", retrySetting);
 
             try
             {
-                var authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...";
+                //var authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ...";
 
 
                 var authData = "valid-api-key";
                 var authResult = await apiClient.Authenticate("/authenticate", authData);
-                Console.WriteLine(authResult);
+                Console.WriteLine($"Access Token: {authResult.access_token}");
 
-                var postResult = await apiClient.PlateSolve("/platesolve", authResult);
-                Console.WriteLine(postResult);
+                var currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                if (authResult.expiry_time - currentTime < 300) // Token expires in less than 5 minutes
+                {
+                    Console.WriteLine("Token is about to expire, refreshing...");
+                    authResult = await apiClient.RefreshToken("/authenticate", authData);
+                    Console.WriteLine($"New Access Token: {authResult.access_token}");
+                }
 
-                var result = await apiClient.PlateSolveResult("/platesolve/platesolve123", authToken);
-                Console.WriteLine(result);
+                var imagingSessionRequest = new ImagingSessionRequest
+                {
+                    local_time = "2024-05-27T10:00:00Z",
+                    geolocation = new Geolocation { lat = 34.0522, lon = -118.2437 },
+                    targetname = "Mars",
+                    skycoordinates = new SkyCoordinates { ra = 14.66, dec = -60.835 }
+                };
+
+                var postResult = await apiClient.ImagingSession("/imagingsession/start", authResult.access_token, imagingSessionRequest);
+                Console.WriteLine($"Imaging Session ID: {postResult.imaging_session_id}");
+                //var result = await apiClient.PlateSolveResult("/platesolve/platesolve123", authResult.AccessToken);
+                //Console.WriteLine(result);
 
             }
             catch (Exception ex)

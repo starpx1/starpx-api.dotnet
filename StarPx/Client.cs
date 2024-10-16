@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Polly;
 using Polly.Retry;
 using Serilog;
 using Serilog.Events;
+using StarPx.Models;
 namespace StarPx
 {
     public class Client
@@ -27,44 +29,38 @@ namespace StarPx
            .MinimumLevel.Information()
            .WriteTo.Console()
            .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
-           .WriteTo.File("warningLog.txt",
-                                         restrictedToMinimumLevel: LogEventLevel.Warning,
-                                         rollingInterval: RollingInterval.Day)
+           .WriteTo.File("warningLog.txt",restrictedToMinimumLevel: LogEventLevel.Warning,rollingInterval: RollingInterval.Day)
            .MinimumLevel.Debug()
            .CreateLogger();
         }
-        public async Task<string> PlateSolveResult(string endpoint, string? authToken)
-        {
-            //var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + endpoint);
-            //if (!string.IsNullOrEmpty(authToken))
-            //    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
-            try
-            {
-                var response = await _retryPolicy.ExecuteAsync(() =>
-                {
-                    var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + endpoint);
-                    if (!string.IsNullOrEmpty(authToken))
-                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
-                    return SendRequestWithoutRetryAsync(request);
-                });
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to send request after maximum retries. Error: {ex.Message}");
-                _logger.Error(ex.Message);
+        //public async Task<string> PlateSolveResult(string endpoint, string? authToken)
+        //{
+        //    //var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + endpoint);
+        //    //if (!string.IsNullOrEmpty(authToken))
+        //    //    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+        //    try
+        //    {
+        //        var response = await _retryPolicy.ExecuteAsync(() =>
+        //        {
+        //            var request = new HttpRequestMessage(HttpMethod.Get, _baseUrl + endpoint);
+        //            if (!string.IsNullOrEmpty(authToken))
+        //                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+        //            return SendRequestWithoutRetryAsync(request);
+        //        });
+        //        response.EnsureSuccessStatusCode();
+        //        return await response.Content.ReadAsStringAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Failed to send request after maximum retries. Error: {ex.Message}");
+        //        _logger.Error(ex.Message);
 
-                throw;
-            }
+        //        throw;
+        //    }
 
-        }
-        public async Task<string> Authenticate(string endpoint, string data)
+        //}
+        public async Task<AuthResult> Authenticate(string endpoint, string data)
         {
-            //var request = new HttpRequestMessage(HttpMethod.Post, _baseUrl + endpoint);
-            //request.Headers.Add("apiKey", data);
-            //request.Content = new StringContent(data);
-            //request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             try
             {
                 var response = await _retryPolicy.ExecuteAsync(() =>
@@ -74,7 +70,9 @@ namespace StarPx
                     return SendRequestWithoutRetryAsync(request);
                 });
                 response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync();
+                var returnValue = JsonSerializer.Deserialize<AuthResult>(content);
+                return returnValue;
             }
             catch (Exception ex)
             {
@@ -86,12 +84,8 @@ namespace StarPx
 
         }
 
-        public async Task<string> PlateSolve(string endpoint, string? authToken)
+        public async Task<ImagingSessionResponse> ImagingSession(string endpoint, string? authToken, ImagingSessionRequest requestBody)
         {
-            //var request = new HttpRequestMessage(HttpMethod.Post, _baseUrl + endpoint);
-            //if (!string.IsNullOrEmpty(authToken))
-            //    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
-
             try
             {
                 var response = await _retryPolicy.ExecuteAsync(() =>
@@ -99,10 +93,14 @@ namespace StarPx
                     var request = new HttpRequestMessage(HttpMethod.Post, _baseUrl + endpoint);
                     if (!string.IsNullOrEmpty(authToken))
                         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+                    request.Content = new StringContent(JsonSerializer.Serialize(requestBody));
+                    request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     return SendRequestWithoutRetryAsync(request);
                 });
                 response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsStringAsync();
+                var content = await response.Content.ReadAsStringAsync();
+                var returnValue = JsonSerializer.Deserialize<ImagingSessionResponse>(content);
+                return returnValue;
             }
             catch (Exception ex)
             {
@@ -112,10 +110,16 @@ namespace StarPx
             }
 
         }
+        public async Task<AuthResult> RefreshToken(string endpoint, string data)
+        {
+            return await Authenticate(endpoint, data);
+        }
         private async Task<HttpResponseMessage> SendRequestWithoutRetryAsync(HttpRequestMessage request)
         {
             // Send the actual HTTP request
             return await _httpClient.SendAsync(request);
         }
     }
+    
+    
 }
