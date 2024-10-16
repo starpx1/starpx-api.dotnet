@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express();
-const PORT = 3000;
+// const PORT = 3000;
 var number = 0;
 var generalToken;
 app.use(bodyParser.json());
@@ -13,16 +13,7 @@ function random(mn, mx) {
   return Math.random() * (mx - mn) + mn;
 }
 
-// Mock data
-// const mockAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...';
-// const mockPlateSolveResult = {
-//   platesolveId: 'platesolve' + (int + 1),
-//   solved: true,
-//   skyCoordinate: {
-//     ra: arr[(Math.floor(random(1, 2))) - 1],
-//     dec: arr2[(Math.floor(random(1, 2))) - 1]
-//   }
-// };
+
 var plateSolveResult;
 function generateAccessToken(payload) {
   const secretKey = process.env.SECRET_KEY;
@@ -31,7 +22,7 @@ function generateAccessToken(payload) {
 
 }
 // /authenticate endpoint
-app.post('/authenticate', (req, res) => {
+app.post('https://api.starpx.com/v1/authenticate', (req, res) => {
   const apiKey = req.header('apiKey');
   if (apiKey === 'valid-api-key') {
     const payload = {
@@ -56,7 +47,7 @@ app.post('/authenticate', (req, res) => {
 });
 
 // /platesolve endpoint
-app.post('/platesolve', (req, res) => {
+app.post('https://api.starpx.com/v1/platesolve', (req, res) => {
   const authHeader = req.header('Authorization');
   // const token = authHeader.split(' ')[1];
   const token = generalToken;
@@ -81,7 +72,7 @@ app.post('/platesolve', (req, res) => {
 });
 
 // /platesolve/:platesolve_id endpoint
-app.get('/platesolve/:platesolve_id', (req, res) => {
+app.get('https://api.starpx.com/v1/platesolve/:platesolve_id', (req, res) => {
   const authHeader = req.header('Authorization');
   // const token = authHeader.split(' ')[1];
   const token = generalToken;
@@ -103,6 +94,7 @@ app.get('/platesolve/:platesolve_id', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+  
+// });
+https.createServer(()=>{ console.log(`Server is running on port ${PORT}`) }, app).listen(443);

@@ -30,7 +30,7 @@ namespace TestApp
                 var authResult = await apiClient.Authenticate("/authenticate", authData);
                 Console.WriteLine(authResult);
 
-                var postResult = await apiClient.PlateSolve("/platesolve", authToken);
+                var postResult = await apiClient.PlateSolve("/platesolve", authResult);
                 Console.WriteLine(postResult);
 
                 var result = await apiClient.PlateSolveResult("/platesolve/platesolve123", authToken);

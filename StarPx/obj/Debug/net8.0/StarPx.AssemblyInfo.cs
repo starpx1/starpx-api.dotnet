@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StarPx")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc1be3f74a6e2c33e87925c7b508c028a4f72815")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b17f97a8dbcca59dd2bde02a10eb69b3d2d0f61e")]
 [assembly: System.Reflection.AssemblyProductAttribute("StarPx")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StarPx")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
