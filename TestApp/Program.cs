@@ -47,10 +47,28 @@ namespace TestApp
                     skycoordinates = new SkyCoordinates { ra = 14.66, dec = -60.835 }
                 };
 
-                var postResult = await apiClient.ImagingSession("/imagingsession/start", authResult.access_token, imagingSessionRequest);
-                Console.WriteLine($"Imaging Session ID: {postResult.imaging_session_id}");
-                //var result = await apiClient.PlateSolveResult("/platesolve/platesolve123", authResult.AccessToken);
-                //Console.WriteLine(result);
+                var imagingSessionResult = await apiClient.ImagingSession("/imagingsession/start", authResult.access_token, imagingSessionRequest);
+                Console.WriteLine($"Imaging Session ID: {imagingSessionResult.imaging_session_id}");
+
+                var fileUploadStartRequest = new FileUploadStartRequest
+                {
+                    path = "C:\\Imaging\\M33_light_300s.fit",
+                    compression = "zip",
+                    size = 16777216,
+                };
+                for (int i = 0; i < 10; i++)
+                {
+                    await apiClient.UploadFileAsync($"/imagingsession/fileupload/start/{imagingSessionResult.imaging_session_id}", "/imagingsession/fileupload/finish", authResult.access_token, fileUploadStartRequest);
+
+                }
+
+                Console.WriteLine("All files have been queued for upload.");
+                //var imagingSessionFileUploadResult = await apiClient.FileUploadStart($"/imagingsession/fileupload/start/{imagingSessionResult.imaging_session_id}", authResult.access_token, fileUploadStartRequest);
+                //Console.WriteLine($"Imaging Session File ID: {imagingSessionFileUploadResult.file_id}");
+
+                //var imagingSessionFileUploadFinishResult = await apiClient.FileUploadFinish("/imagingsession/fileupload/finish", authResult.access_token,imagingSessionFileUploadResult.file_id);
+                //Console.WriteLine(imagingSessionFileUploadFinishResult);
+
 
             }
             catch (Exception ex)
