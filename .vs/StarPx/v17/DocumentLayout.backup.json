@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "D:\\Projects\\StarPx\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3D9C0F24-804B-4515-897A-FD033076B3F4}|StarPx\\StarPx.csproj|d:\\projects\\starpx\\starpx\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3D9C0F24-804B-4515-897A-FD033076B3F4}|StarPx\\StarPx.csproj|solutionrelative:starpx\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8A2F6000-B9B3-4651-9B06-FBEECD42C403}|TestApp\\TestApp.csproj|d:\\projects\\starpx\\testapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8A2F6000-B9B3-4651-9B06-FBEECD42C403}|TestApp\\TestApp.csproj|solutionrelative:testapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3D9C0F24-804B-4515-897A-FD033076B3F4}|StarPx\\StarPx.csproj|d:\\projects\\starpx\\starpx\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D9C0F24-804B-4515-897A-FD033076B3F4}|StarPx\\StarPx.csproj|solutionrelative:starpx\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,29 +26,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Projects\\StarPx\\TestApp\\Program.cs",
               "RelativeDocumentMoniker": "TestApp\\Program.cs",
               "ToolTip": "D:\\Projects\\StarPx\\TestApp\\Program.cs",
               "RelativeToolTip": "TestApp\\Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwBYAAAAAAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T03:32:05.693Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Client.cs",
               "DocumentMoniker": "D:\\Projects\\StarPx\\StarPx\\Client.cs",
               "RelativeDocumentMoniker": "StarPx\\Client.cs",
               "ToolTip": "D:\\Projects\\StarPx\\StarPx\\Client.cs",
               "RelativeToolTip": "StarPx\\Client.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHcAAAAFAAAAAAAAAA==",
+              "ViewState": "AQIAADAAAAAAAAAAAAAowBEAAABLAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T03:01:23.416Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-12T03:01:23.416Z"
             }
           ]
         }
