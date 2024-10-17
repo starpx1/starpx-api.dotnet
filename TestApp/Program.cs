@@ -5,13 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Serilog.Events;
 using Serilog;
+using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Polly;
 using Polly.Retry;
-
 using StarPx;
-using Polly;
 using StarPx.Models;
 namespace TestApp
 {
