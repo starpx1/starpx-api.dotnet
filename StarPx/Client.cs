@@ -63,7 +63,7 @@ namespace StarPx
 
         }
 
-        public async Task<ImagingSessionResponse> ImagingSession(string endpoint, string? authToken, ImagingSessionRequest requestBody)
+        public async Task<ImagingSessionResponse> ImagingSessionStart(string endpoint, string? authToken, ImagingSessionRequest requestBody)
         {
             try
             {
@@ -89,7 +89,30 @@ namespace StarPx
             }
 
         }
-        
+        public async Task<string> ImagingSessionFinish(string endpoint, string? authToken, string? sessionId)
+        {
+            try
+            {
+                var response = await _retryPolicy.ExecuteAsync(() =>
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Post, _baseUrl + endpoint + "/" + sessionId);
+                    if (!string.IsNullOrEmpty(authToken))
+                        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+                    return SendRequestWithoutRetryAsync(request);
+                });
+                response.EnsureSuccessStatusCode();
+                return "Imaging session has finished!";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to send request after maximum retries. Error: {ex.Message}");
+                _logger.Error(ex.Message);
+
+                throw;
+            }
+
+        }
+
         public async Task<FileUploadStartResponse> FileUploadStart(string endpoint, string? authToken, FileUploadStartRequest requestBody)
         {
             try
@@ -140,9 +163,9 @@ namespace StarPx
             }
 
         }
-        public async Task<string> UploadFileAsync(string startEndpoint, string finishEndpoint, string? authToken, FileUploadStartRequest requestBody)
+        public async Task<UploadFileResult> UploadFileAsync(string startEndpoint, string finishEndpoint, string? authToken, FileUploadStartRequest requestBody)
         {
-            var tcs = new TaskCompletionSource<string>();
+            var tcs = new TaskCompletionSource<UploadFileResult>();
 
             _uploadQueue.Enqueue(async () =>
             {
@@ -151,9 +174,14 @@ namespace StarPx
                 {
                     var startResponse = await FileUploadStart(startEndpoint, authToken, requestBody);
                     await FileUploadFinish(finishEndpoint, authToken, startResponse.file_id);
-                    var successMessage = $"Successfully uploaded file {startResponse.file_id}";
+                    var fileName = System.IO.Path.GetFileName(requestBody.path);
+                    var successMessage = $"Successfully uploaded file {fileName}";
                     Console.WriteLine(successMessage);
-                    tcs.SetResult(successMessage);
+                    tcs.SetResult(new UploadFileResult
+                    {
+                        SuccessMessage = successMessage,
+                        UploadUrl = startResponse.upload_url
+                    });
                 }
                 catch (Exception ex)
                 {

@@ -17,4 +17,9 @@ namespace StarPx.Models
         public string? upload_url { get; set; }
         public string? file_id { get; set; }
     }
+    public class UploadFileResult
+    {
+        public string? SuccessMessage { get; set; }
+        public string? UploadUrl { get; set; }
+    }
 }
