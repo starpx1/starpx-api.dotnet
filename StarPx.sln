@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarPx", "StarPx\StarPx.csproj", "{3D9C0F24-804B-4515-897A-FD033076B3F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestApp", "TestApp\TestApp.csproj", "{8A2F6000-B9B3-4651-9B06-FBEECD42C403}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StarpxExampleApp", "StarpxExampleApp\StarpxExampleApp.csproj", "{8A2F6000-B9B3-4651-9B06-FBEECD42C403}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

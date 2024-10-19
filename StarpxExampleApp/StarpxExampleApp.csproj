@@ -6,7 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <AssemblyName>StarpxExampleApp</AssemblyName>
+    <RootNamespace>StarpxExampleApp</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\starpx.jpg" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LibLog" Version="5.0.8">
@@ -24,6 +30,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StarPx\StarPx.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\starpx.jpg" />
   </ItemGroup>
 
 </Project>
